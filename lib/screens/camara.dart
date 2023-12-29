@@ -21,7 +21,7 @@ class _camaraScreenState extends State<camaraScreen> {
 
   loadModel() async {
     await Tflite.loadModel(
-        model: 'assets/model3.tflite', labels: 'assets/labels.txt');
+        model: 'assets/model2.tflite', labels: 'assets/labels.txt');
   }
 
 
@@ -75,7 +75,7 @@ class _camaraScreenState extends State<camaraScreen> {
       );
 
     recognitions?.forEach((response) {
-      result = response["label"] + "<" + (response["confidence"] as double).toStringAsFixed(2) + ">\n\n";
+      result = response["label"] + " " + ((response["confidence"])*100 as double).toStringAsFixed(2) + "%";
       print(result);
     });
 
@@ -118,12 +118,17 @@ class _camaraScreenState extends State<camaraScreen> {
               ),
               Container(
                 height: size.height * 0.4,
-                color: Colors.blue,
+                color: Colors.black87,
                 child: Column(
                   children: [
-                    Center(
-                      child: Text(result),
-                    )
+                    Center(                      
+                      child: Text("El resultado es",
+                      style: TextStyle(color: Colors.white, fontSize: 40)),
+                    ),
+                    Center(                      
+                      child: Text(result,
+                      style: TextStyle(color: Colors.white, fontSize: 40)),
+                    ),                    
                   ],
                 ),
               )
